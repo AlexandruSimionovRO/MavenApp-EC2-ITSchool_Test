@@ -99,5 +99,5 @@ resource "aws_instance" "MavenApp-ITSchool-server" {
 }
 
 output "ec2_public_ip" {
-    value = aws_instance.myapp-server.public_ip
+    value = aws_instance.MavenApp-ITSchool-server.public_ip
 }
