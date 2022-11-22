@@ -1,8 +1,8 @@
 terraform {
     required_version = ">= 0.12"
     backend "s3" {
-        bucket = "myapp-bucket"
-        key = "myapp/state.tfstate"
+        bucket = "MavenApp-ITSchool-Bucket"
+        key = "MavenApp-ITSchool/state.tfstate"
         region = "eu-central-1"
     }
 }
@@ -11,15 +11,15 @@ provider "aws" {
     region = var.region
 }
 
-resource "aws_vpc" "myapp-vpc" {
+resource "aws_vpc" "MavenApp-ITSchool-vpc" {
     cidr_block = var.vpc_cidr_block
     tags = {
         Name: "${var.env_prefix}-vpc"
     }
 }
 
-resource "aws_subnet" "myapp-subnet-1" {
-    vpc_id = aws_vpc.myapp-vpc.id
+resource "aws_subnet" "MavenApp-ITSchool-subnet-1" {
+    vpc_id = aws_vpc.MavenApp-ITSchool-vpc.id
     cidr_block = var.subnet_cidr_block
     availability_zone = var.avail_zone
     tags = {
@@ -27,19 +27,19 @@ resource "aws_subnet" "myapp-subnet-1" {
     }
 }
 
-resource "aws_internet_gateway" "myapp-igw" {
-    vpc_id = aws_vpc.myapp-vpc.id
+resource "aws_internet_gateway" "MavenApp-ITSchool-igw" {
+    vpc_id = aws_vpc.MavenApp-ITSchool-vpc.id
     tags = {
         Name: "${var.env_prefix}-igw"
     }
 }
 
 resource "aws_default_route_table" "main-rtb" {
-    default_route_table_id = aws_vpc.myapp-vpc.default_route_table_id
+    default_route_table_id = aws_vpc.MavenApp-ITSchool-vpc.default_route_table_id
 
     route {
         cidr_block = "0.0.0.0/0"
-        gateway_id = aws_internet_gateway.myapp-igw.id
+        gateway_id = aws_internet_gateway.MavenApp-ITSchool-igw.id
     }
     tags = {
         Name: "${var.env_prefix}-main-rtb"
@@ -47,7 +47,7 @@ resource "aws_default_route_table" "main-rtb" {
 }
 
 resource "aws_default_security_group" "default-sg" {
-    vpc_id = aws_vpc.myapp-vpc.id
+    vpc_id = aws_vpc.MavenApp-ITSchool-vpc.id
 
     ingress {
         from_port = 22
@@ -89,11 +89,11 @@ data "aws_ami" "latest-amazon-linux-image" {
     }
 }
 
-resource "aws_instance" "myapp-server" {
+resource "aws_instance" "MavenApp-ITSchool-server" {
     ami = data.aws_ami.latest-amazon-linux-image.id
     instance_type = var.instance_type
 
-    subnet_id = aws_subnet.myapp-subnet-1.id
+    subnet_id = aws_subnet.MavenApp-ITSchool-subnet-1.id
     vpc_security_group_ids = [aws_default_security_group.default-sg.id]
     availability_zone = var.avail_zone
 
