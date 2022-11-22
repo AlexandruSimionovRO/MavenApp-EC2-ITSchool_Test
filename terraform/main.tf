@@ -1,12 +1,3 @@
-terraform {
-    required_version = ">= 0.12"
-    backend "s3" {
-        bucket = "MavenApp-ITSchool-Bucket"
-        key = "MavenApp-ITSchool/state.tfstate"
-        region = "eu-central-1"
-    }
-}
-
 provider "aws" {
     region = var.region
 }
