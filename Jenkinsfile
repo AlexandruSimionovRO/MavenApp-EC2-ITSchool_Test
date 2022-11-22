@@ -6,7 +6,6 @@ pipeline {
         maven 'Maven_v3.8.6'
     }
     
-
     environment {
         IMAGE_NAME = 'alexsv1/mavenapp-itschoolproject'
     }
@@ -25,7 +24,7 @@ pipeline {
                 }
             }
         }
-    }
+    
         stage('Build App') {
             steps {
                 script {
@@ -89,8 +88,7 @@ pipeline {
                        sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${shellCmd}"
                    }
                 }
-
-
+            }
         }
     }
 }
