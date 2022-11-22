@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
 pipeline {
-    agent {label 'master'}
+    agent {label 'Master'}
     tools {
         maven 'Maven_v3.8.6'
     }
